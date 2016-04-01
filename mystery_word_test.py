@@ -4,7 +4,9 @@ import mystery_word
 class MysteryWordTest(unittest.TestCase):
 
     def test_wants_to_play(self):
-        pass
+        self.assertTrue(mystery_word.wants_to_play('Y'))
+        self.assertFalse(mystery_word.wants_to_play(''))
+        self.assertFalse(mystery_word.wants_to_play('f'))
 
     def test_get_easy_words(self):
         resulting_list = mystery_word.get_words('e')
@@ -41,6 +43,8 @@ class MysteryWordTest(unittest.TestCase):
         self.assertTrue(mystery_word.is_invalid('bro', ['a', 'b', 'c']))
         self.assertFalse(mystery_word.is_invalid('f', ['a', 'b', 'c']))
         self.assertTrue(mystery_word.is_invalid('b', ['a', 'b', 'c']))
+        self.assertTrue(mystery_word.is_invalid('4', list('abcdef')))
+        self.assertTrue(mystery_word.is_invalid('$', list('abcdef')))
 
     def test_is_win(self):
         self.assertTrue(mystery_word.is_win('E N V I A B L E'))

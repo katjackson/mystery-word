@@ -2,9 +2,8 @@ import re
 import random
 
 
-def wants_to_play():
-    if (input("Do you want to keep playing Mystery World? Y/n\n")).lower() == 'y':
-        return True
+def wants_to_play(go_input):
+    return go_input.lower() == 'y'
 
 def get_words(difficulty):
     easy_word_list = []
@@ -53,7 +52,7 @@ def get_guess(guess_counter):
 
 
 def is_invalid(guess, previous_guesses):
-    if len(guess) != 1:
+    if not guess.isalpha() or len(guess) != 1:
         print("\nTry guessing just one letter.")
         return True
     elif guess in previous_guesses:
@@ -95,7 +94,8 @@ def main():
 
     print("\nOh hai!\n")
 
-    if not wants_to_play():
+    go_input = input("Do you want to keep playing Mystery World? Y/n\n")
+    if not wants_to_play(go_input):
         print("\nOk Goodbye!")
         return False
 
@@ -112,6 +112,8 @@ def main():
 
     while guess_counter < 8:
         print('\n\n' + game_board + '\n')
+        if previous_guesses:
+            print("Previous guesses: ", " ".join(previous_guesses))
         guess = get_guess(guess_counter)
         if is_invalid(guess, previous_guesses):
             continue
