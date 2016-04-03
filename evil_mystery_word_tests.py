@@ -27,6 +27,9 @@ class EvilMysteryWordTest(unittest.TestCase):
     def test_get_guess(self):
         pass
 
+    def test_create_blanks_key(self):
+        self.assertEqual((evil_mystery_word.create_blanks_key('a', 'banana')), '_a_a_a')
+
     def test_narrow_word_list(self):
         fake_word_list = [list('axxx'), list('abxx'), list('xabx'), list('xbax'), list('xbxx'), list('xbxx'), list('xxxx')]
         self.assertEqual(evil_mystery_word.narrow_word_list('a', fake_word_list), [list('xbxx'), list('xbxx'), list('xxxx')])

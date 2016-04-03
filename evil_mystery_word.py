@@ -12,7 +12,7 @@ def get_words(difficulty):
     if difficulty.lower() == 'e':
         winning_word_length = random.randint(4, 6)
     elif difficulty.lower() == 'h':
-        winning_word_length = random.randint(6, 24)
+        winning_word_length = random.randint(8, 24)
     else:
         winning_word_length = random.randint(6, 8)
 
@@ -20,7 +20,7 @@ def get_words(difficulty):
         for word in f.readlines():
             stripped_word = re.sub('[^A-Za-z]', '', word)
             if len(stripped_word) == winning_word_length:
-                possible_winning_word_list.append(list(stripped_word.lower()))
+                possible_winning_word_list.append(stripped_word.lower())
 
     return possible_winning_word_list
 
@@ -55,6 +55,16 @@ def is_invalid(guess, previous_guesses):
         return False
 
 
+def create_blanks_key(guess, word):
+    blanks_key = ''
+    for letter in word:
+        if letter == guess:
+            blanks_key += letter
+        else:
+            blanks_key += '_'
+    return blanks_key
+
+
 def narrow_word_list(guess, possible_winning_word_list):
     word_families = {}
 
@@ -63,13 +73,7 @@ def narrow_word_list(guess, possible_winning_word_list):
 
     for word in possible_winning_word_list:
         if guess in word:
-            blanks_key = ''
-            for letter in word:
-                if letter == guess:
-                    blanks_key += letter
-                else:
-                    blanks_key += '_'
-
+            blanks_key = create_blanks_key(guess, word)
             try:
                 word_families[blanks_key].append(word)
             except:
@@ -108,7 +112,7 @@ def draw_board(winning_word, game_board, guess):
 
 def is_win(game_board):
     if '_' not in game_board:
-        print("You win!")
+        print("\nYou win!")
         return True
 
 
@@ -125,11 +129,8 @@ def main():
     difficulty = input("\nPlease select a difficulty level: (E)asy, Normal (default), or (H)ard\n")
 
     possible_winning_word_list = get_words(difficulty)
-    # guess = 'a'
-    # narrow_word_list(guess, possible_winning_word_list)
 
     sample_word = possible_winning_word_list[0]
-    # winning_word = get_winning_word(get_words(difficulty))
 
     game_board = draw_new_board(sample_word)
     print("\n\nThere are {} letters in the word.".format(len(sample_word)))
@@ -151,6 +152,7 @@ def main():
             previous_guesses.append(guess)
             game_board = draw_board(sample_word, game_board, guess)
             if is_win(game_board):
+                print("The word was", game_board)
                 break
             if guess not in game_board:
                 print("\nNope!")
