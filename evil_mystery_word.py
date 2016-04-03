@@ -40,7 +40,7 @@ def get_guess(guess_counter):
         if guess_counter == 7:
             print("Last chance!\n")
         else:
-            print("Careful, only {} more wrong guesses\n".format(8 - guess_counter))
+            print("Careful, only {} more wrong guesses\n".format(25 - guess_counter))
         return (input("Guess again: ")).lower()
 
 
@@ -133,7 +133,7 @@ def main():
 
     game_board = draw_new_board(sample_word)
     print("\n\nThere are {} letters in the word.".format(len(sample_word)))
-    print("You get 8 guesses.")
+    print("You get 25 guesses.")
 
     guess_counter = 0
     previous_guesses = []
