@@ -14,41 +14,38 @@ class EvilMysteryWordTest(unittest.TestCase):
 
     def test_get_hard_words(self):
         resulting_list = evil_mystery_word.get_words('h')
-        self.assertTrue(8 <= len(resulting_list[25]) and len(max(resulting_list)) == len(min(resulting_list)))
+        self.assertTrue(8 <= len(resulting_list[0]) and len(max(resulting_list)) == len(min(resulting_list)))
 
     def test_get_normal_words(self):
         resulting_list = evil_mystery_word.get_words('')
         self.assertTrue(6 <= len(resulting_list[25]) <= 8 and len(max(resulting_list)) == len(min(resulting_list)))
-    #
-    # def test_get_winning_word(self):
-    #     winning_word = evil_mystery_word.get_winning_word(['a', 'list', 'of', 'words'])
-    #     self.assertTrue(winning_word in ['a', 'list', 'of', 'words'])
-    #
-    # def test_draw_new_board(self):
-    #     game_board = evil_mystery_word.draw_new_board('wingman')
-    #     self.assertEqual(game_board, '_ _ _ _ _ _ _')
-    #
-    # def test_get_guess(self):
-    #     pass
-    #
-    # def test_is_good_guess(self):
-    #     self.assertTrue(evil_mystery_word.is_good_guess('cynegild', 'g'))
-    #     self.assertFalse(evil_mystery_word.is_good_guess('orestean', 'g'))
-    #
-    # def test_draw_board(self):
-    #     game_board = evil_mystery_word.draw_board('lanceman', 'L _ _ C _ _ A _', 'n')
-    #     self.assertEqual(game_board, 'L _ N C _ _ A N')
-    #
-    # def test_is_invalid(self):
-    #     self.assertTrue(evil_mystery_word.is_invalid('bro', ['a', 'b', 'c']))
-    #     self.assertFalse(evil_mystery_word.is_invalid('f', ['a', 'b', 'c']))
-    #     self.assertTrue(evil_mystery_word.is_invalid('b', ['a', 'b', 'c']))
-    #     self.assertTrue(evil_mystery_word.is_invalid('4', list('abcdef')))
-    #     self.assertTrue(evil_mystery_word.is_invalid('$', list('abcdef')))
-    #
-    # def test_is_win(self):
-    #     self.assertTrue(evil_mystery_word.is_win('E N V I A B L E'))
-    #     self.assertFalse(evil_mystery_word.is_win('P _ P _ R E _ N'))
+
+    def test_draw_new_board(self):
+        game_board = evil_mystery_word.draw_new_board('wingman')
+        self.assertEqual(game_board, '_ _ _ _ _ _ _')
+
+    def test_get_guess(self):
+        pass
+
+    def test_narrow_word_list(self):
+        fake_word_list = [list('axxx'), list('abxx'), list('xabx'), list('xbax'), list('xbxx'), list('xbxx'), list('xxxx')]
+        self.assertEqual(evil_mystery_word.narrow_word_list('a', fake_word_list), [list('xbxx'), list('xbxx'), list('xxxx')])
+        self.assertEqual(evil_mystery_word.narrow_word_list('b', fake_word_list), [list('abxx'), list('xbax'), list('xbxx'), list('xbxx')])
+
+    def test_draw_board(self):
+        game_board = evil_mystery_word.draw_board('lanceman', 'L _ _ C _ _ A _', 'n')
+        self.assertEqual(game_board, 'L _ N C _ _ A N')
+
+    def test_is_invalid(self):
+        self.assertTrue(evil_mystery_word.is_invalid('bro', ['a', 'b', 'c']))
+        self.assertFalse(evil_mystery_word.is_invalid('f', ['a', 'b', 'c']))
+        self.assertTrue(evil_mystery_word.is_invalid('b', ['a', 'b', 'c']))
+        self.assertTrue(evil_mystery_word.is_invalid('4', list('abcdef')))
+        self.assertTrue(evil_mystery_word.is_invalid('$', list('abcdef')))
+
+    def test_is_win(self):
+        self.assertTrue(evil_mystery_word.is_win('E N V I A B L E'))
+        self.assertFalse(evil_mystery_word.is_win('P _ P _ R E _ N'))
 
 if __name__ == '__main__':
     unittest.main()
