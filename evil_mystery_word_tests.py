@@ -30,6 +30,10 @@ class EvilMysteryWordTest(unittest.TestCase):
     def test_create_blanks_key(self):
         self.assertEqual((evil_mystery_word.create_blanks_key('a', 'banana')), '_a_a_a')
 
+    def test_find_longest_value(self):
+        resulting_key = evil_mystery_word.find_longest_value({'1 thing': ['a'], '2 things': ['a', 'b'], '3 things': ['a', 'b', 'c']})
+        self.assertEqual(resulting_key, '3 things')
+
     def test_narrow_word_list(self):
         fake_word_list = [list('axxx'), list('abxx'), list('xabx'), list('xbax'), list('xbxx'), list('xbxx'), list('xxxx')]
         self.assertEqual(evil_mystery_word.narrow_word_list('a', fake_word_list), [list('xbxx'), list('xbxx'), list('xxxx')])
